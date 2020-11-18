@@ -3,14 +3,21 @@ from bhaptics import haptic_player
 
 
 player = haptic_player.HapticPlayer()
-sleep(0.1)
+sleep(0.4)
 
 # tact file can be exported from bhaptics designer
-player.register("BowShoot", "BowShoot.tact")
+print("register CenterX")
+player.register("CenterX", "CenterX.tact")
+print("register Circle")
+player.register("Circle", "Circle.tact")
 
-sleep(0.1)
-player.submit_registered("BowShoot")
-sleep(2)
+sleep(0.3)
+print("submit CenterX")
+player.submit_registered("CenterX")
+sleep(4)
+print("submit Circle")
+player.submit_registered("Circle")
+sleep(3)
 
 interval = 0.5
 durationMillis = 100

@@ -67,7 +67,7 @@ class HapticPlayer:
         submit = {
             "Submit": [{
                 "Type": "key",
-                "Key": "BowShoot"
+                "Key": key
             }]
         }
 
