@@ -16,7 +16,13 @@ print("submit CenterX")
 player.submit_registered("CenterX")
 sleep(4)
 print("submit Circle")
-player.submit_registered("Circle")
+player.submit_registered_with_option("Circle", "alt",
+                                     scale_option={"intensity": 1, "duration": 1},
+                                     rotation_option={"offsetAngleX": 180, "offsetY": 0})
+print("submit Circle With Diff AltKey")
+player.submit_registered_with_option("Circle", "alt2",
+                                     scale_option={"intensity": 1, "duration": 1},
+                                     rotation_option={"offsetAngleX": 0, "offsetY": 0})
 sleep(3)
 
 interval = 0.5

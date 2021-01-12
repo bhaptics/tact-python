@@ -67,7 +67,29 @@ class HapticPlayer:
         submit = {
             "Submit": [{
                 "Type": "key",
-                "Key": key
+                "Key": key,
+            }]
+        }
+
+        json_str = json.dumps(submit);
+
+        self.ws.send(json_str)
+
+    def submit_registered_with_option(
+            self, key, alt_key,
+            scale_option,
+            rotation_option):
+        # scaleOption: {"intensity": 1, "duration": 1}
+        # rotationOption: {"offsetAngleX": 90, "offsetY": 0}
+        submit = {
+            "Submit": [{
+                "Type": "key",
+                "Key": key,
+                "Parameters": {
+                    "altKey": alt_key,
+                    "rotationOption": rotation_option,
+                    "scaleOption": scale_option,
+                }
             }]
         }
 
