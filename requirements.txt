@@ -1,2 +1,3 @@
-websocket-client
-python-osc
+websocket-client~=0.57.0
+python-osc~=1.7.4
+keyboard~=0.13.5
