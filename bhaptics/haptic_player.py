@@ -80,7 +80,7 @@ class BhapticsSDK2:
         }
 
         auth_message = generate_message("SdkRequestAuthInit", config)
-        # self.client.send_message(auth_message)
+        self.client.send_message(auth_message)
 
     def message_received(self, message):
         """Handle TCP messages."""
@@ -129,15 +129,14 @@ class BhapticsSDK2:
         self.client.send_message(message)
 
         return request_id
-    #
-    # def stop_by_event(self, event):
-    #     """Play an event."""
-    #     if self.client is None:
-    #         return
-    #
-    #     message = generate_message("SdkStopByEventId", event)
-    #     self.client.send_message(message)
+    
+    def stop_all(self):
+        """Stop all events."""
+        if self.client is None:
+            return
 
+        message = generate_message("SdkStopAll", "")
+        self.client.send_message(message)
 
 if __name__ == '__main__':
     bhaptics_client = BhapticsSDK2("dd", "dd")

@@ -1,4 +1,6 @@
+# import keyboard
 import time
+
 from bhaptics.haptic_player import BhapticsSDK2
 
 sdk_instance = None
@@ -14,9 +16,26 @@ if __name__ == '__main__':
     apiKey = "m9ef4q9oQRXbPeJY9z4J"
     sdk_instance = BhapticsSDK2(appId, apiKey)
     try:
+        print("Play 'shoot_test' event")
+        time.sleep(3)
+
         while True:
-            time.sleep(3)
             sdk_instance.play_event("shoot_test")
+            time.sleep(5)
+
+            sdk_instance.play_event("shoot_test", duration=2)
+            time.sleep(5)
+
+            sdk_instance.play_event("shoot_test", duration=2)
+            time.sleep(0.2)
+            sdk_instance.stop_all()
+            time.sleep(5)
+    
     except KeyboardInterrupt:
         print("Stopping the client...")
         sdk_instance.stop()
+
+    finally:
+        print("Finally...")
+
+    print("Client stopped.")
