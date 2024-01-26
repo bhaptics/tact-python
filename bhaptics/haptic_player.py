@@ -105,7 +105,7 @@ class BhapticsSDK2:
         else:
             print("Failed to verify token.")
 
-    def play_event(self, event):  # , intensity=1, duration=1, offset_angle_x=0, offset_y=0):
+    def play_event(self, event, intensity=1, duration=1, offset_angle_x=0, offset_y=0):
         """Play an event."""
         if self.client is None:
             return -1
@@ -119,10 +119,10 @@ class BhapticsSDK2:
         play_message = {
             "eventName": event,
             "requestId": request_id,
-            "intensity ": intensity,
-            "duration ": duration,
-            "offsetAngleX ": offset_angle_x,
-            "offsetY  ": offset_y,
+            "intensity": intensity,
+            "duration": duration,
+            "offsetAngleX": offset_angle_x,
+            "offsetY": offset_y,
         }
 
         message = generate_message("SdkPlay", play_message)

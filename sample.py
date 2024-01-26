@@ -15,7 +15,7 @@ if __name__ == '__main__':
     sdk_instance = BhapticsSDK2(appId, apiKey)
     try:
         while True:
-            time.sleep(5)
+            time.sleep(3)
             sdk_instance.play_event("shoot_test")
     except KeyboardInterrupt:
         print("Stopping the client...")
