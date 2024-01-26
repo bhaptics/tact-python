@@ -3,7 +3,6 @@ import time
 import requests
 import bhaptics.udp_server
 import bhaptics.tcp_client
-import keyboard
 import random
 
 # Constants and Configuration
@@ -81,7 +80,7 @@ class BhapticsSDK2:
         }
 
         auth_message = generate_message("SdkRequestAuthInit", config)
-        self.client.send_message(auth_message)
+        # self.client.send_message(auth_message)
 
     def message_received(self, message):
         """Handle TCP messages."""
@@ -106,10 +105,15 @@ class BhapticsSDK2:
         else:
             print("Failed to verify token.")
 
-    def play_event(self, event, intensity=1, duration=1, offset_angle_x=0, offset_y=0):
+    def play_event(self, event):  # , intensity=1, duration=1, offset_angle_x=0, offset_y=0):
         """Play an event."""
         if self.client is None:
             return -1
+
+        intensity = 1
+        duration = 1
+        offset_angle_x = 0
+        offset_y = 0
 
         request_id = random_request_id()
         play_message = {
@@ -125,14 +129,14 @@ class BhapticsSDK2:
         self.client.send_message(message)
 
         return request_id
-
-    def stop_by_event(self, event):
-        """Play an event."""
-        if self.client is None:
-            return
-
-        message = generate_message("SdkStopByEventId", event)
-        self.client.send_message(message)
+    #
+    # def stop_by_event(self, event):
+    #     """Play an event."""
+    #     if self.client is None:
+    #         return
+    #
+    #     message = generate_message("SdkStopByEventId", event)
+    #     self.client.send_message(message)
 
 
 if __name__ == '__main__':
@@ -145,6 +149,5 @@ if __name__ == '__main__':
         print("Stopping the client...")
         bhaptics_client.stop()
     finally:
-        # Remove the hotkey hook
-        keyboard.remove_hotkey('space')
+        print("")
     print("Client stopped.")

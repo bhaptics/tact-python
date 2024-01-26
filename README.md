@@ -10,7 +10,7 @@
 
 ### Dependencies
 * requests
-* keyboard
+
 
 ### Example Code
 Here's a sample code snippet demonstrating how to use the bHaptics SDK with Python:
@@ -54,7 +54,14 @@ if __name__ == '__main__':
 ```
 
 ### Usage Instructions
-Install the required dependencies.
-Update the appId and apiKey in the code with your credentials.
-Run the script. Press space, '1', or '2' to interact with the bHaptics device.
-To stop, press Ctrl+C.
+* Install the required dependencies.
+
+```
+pip install -r requirements.txt
+```
+
+* Update the appId and apiKey in the code with your credentials.
+
+Visit developer.bhaptics.com to create your own project.
+
+* Execute the script, and it will periodically play haptic patterns every 5 seconds.
