@@ -110,11 +110,6 @@ class BhapticsSDK2:
         if self.client is None:
             return -1
 
-        intensity = 1
-        duration = 1
-        offset_angle_x = 0
-        offset_y = 0
-
         request_id = random_request_id()
         play_message = {
             "eventName": event,
