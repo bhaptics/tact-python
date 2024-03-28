@@ -1,39 +1,41 @@
-from time import sleep
-from bhaptics import haptic_player
+# import keyboard
+import time
+
+from bhaptics.haptic_player import BhapticsSDK2
+
+sdk_instance = None
 
 
-player = haptic_player.HapticPlayer()
-sleep(0.4)
+def on_play():
+    sdk_instance.play_event("shoot_test")
 
-# tact file can be exported from bhaptics designer
-print("register CenterX")
-player.register("CenterX", "CenterX.tact")
-print("register Circle")
-player.register("Circle", "Circle.tact")
 
-sleep(0.3)
-print("submit CenterX")
-player.submit_registered("CenterX")
-sleep(4)
-print("submit Circle")
-player.submit_registered_with_option("Circle", "alt",
-                                     scale_option={"intensity": 1, "duration": 1},
-                                     rotation_option={"offsetAngleX": 180, "offsetY": 0})
-print("submit Circle With Diff AltKey")
-player.submit_registered_with_option("Circle", "alt2",
-                                     scale_option={"intensity": 1, "duration": 1},
-                                     rotation_option={"offsetAngleX": 0, "offsetY": 0})
-sleep(3)
+if __name__ == '__main__':
+    # Replace 'yourAppId' and 'yourApiKey' with your actual appId and apiKey
+    appId = "mWK8BbDgpx9LdZVR22ij"
+    apiKey = "m9ef4q9oQRXbPeJY9z4J"
+    sdk_instance = BhapticsSDK2(appId, apiKey)
+    try:
+        print("Play 'shoot_test' event")
+        time.sleep(3)
 
-interval = 0.5
-durationMillis = 100
+        while True:
+            sdk_instance.play_event("shoot_test")
+            time.sleep(5)
 
-for i in range(20):
-    print(i, "back")
-    player.submit_dot("backFrame", "VestBack", [{"index": i, "intensity": 100}], durationMillis)
-    sleep(interval)
+            sdk_instance.play_event("shoot_test", duration=2)
+            time.sleep(5)
 
-    print(i, "front")
-    player.submit_dot("frontFrame", "VestFront", [{"index": i, "intensity": 100}], durationMillis)
-    sleep(interval)
+            sdk_instance.play_event("shoot_test", duration=2)
+            time.sleep(0.2)
+            sdk_instance.stop_all()
+            time.sleep(5)
+    
+    except KeyboardInterrupt:
+        print("Stopping the client...")
+        sdk_instance.stop()
 
+    finally:
+        print("Finally...")
+
+    print("Client stopped.")
