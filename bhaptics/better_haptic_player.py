@@ -2,12 +2,26 @@ import json
 import socket
 from websocket import create_connection, WebSocket
 import threading
+from enum import Enum
 
 ws = None
 
 active_keys = set([])
 connected_positions = set([])
 
+class BhapticsPosition(Enum):
+    Vest = "Vest"
+    VestFront = "VestFront"
+    VestBack = "VestBack"
+    ForearmL = "ForearmL"
+    ForearmR = "ForearmR"
+    Head = "Head"
+    HandL = "HandL"
+    HandR = "HandR"
+    FootL = "FootL"
+    FootR = "FootR"
+    GloveL = "GloveL"
+    GloveR = "GloveR"
 
 class WebSocketReceiver(WebSocket):
     def recv_frame(self):

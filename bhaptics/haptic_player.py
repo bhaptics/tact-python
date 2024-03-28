@@ -1,5 +1,6 @@
 import json
 from websocket import create_connection
+from enum import Enum
 
 # # send individual point for 1 seconds
 # dotFrame = {
@@ -32,6 +33,19 @@ from websocket import create_connection
 # player.submit("pathPoint", pathFrame)
 # sleep(2)
 
+class BhapticsPosition(Enum):
+    Vest = "Vest"
+    VestFront = "VestFront"
+    VestBack = "VestBack"
+    ForearmL = "ForearmL"
+    ForearmR = "ForearmR"
+    Head = "Head"
+    HandL = "HandL"
+    HandR = "HandR"
+    FootL = "FootL"
+    FootR = "FootR"
+    GloveL = "GloveL"
+    GloveR = "GloveR"
 
 class HapticPlayer:
     def __init__(self):

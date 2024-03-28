@@ -1,5 +1,6 @@
 from time import sleep
 from bhaptics import better_haptic_player as player
+from bhaptics.better_haptic_player import BhapticsPosition
 import keyboard
 
 player.initialize()
@@ -14,16 +15,23 @@ interval = 0.5
 durationMillis = 100
 
 
-
 for i in range(20):
     print(i, "back")
-    player.submit_dot("backFrame", "VestBack", [{"index": i, "intensity": 100}], durationMillis)
+    player.submit_dot("backFrame", BhapticsPosition.VestBack.value, [{"index": i, "intensity": 100}], durationMillis)
     sleep(interval)
 
     print(i, "front")
-    player.submit_dot("frontFrame", "VestFront", [{"index": i, "intensity": 100}], durationMillis)
+    player.submit_dot("frontFrame", BhapticsPosition.VestFront.value, [{"index": i, "intensity": 100}], durationMillis)
     sleep(interval)
 
+for i in range(6):
+    print(i, "Glove Left")
+    player.submit_dot("gloveLFrame", BhapticsPosition.GloveL.value, [{"index": i, "intensity": 100}], durationMillis)
+    sleep(interval)
+
+    print(i, "Glove Right")
+    player.submit_dot("gloveRFrame", BhapticsPosition.GloveR.value, [{"index": i, "intensity": 100}], durationMillis)
+    sleep(interval)
 
 def play(index):
     if index == 1:
@@ -62,8 +70,8 @@ def run():
         print('=================================================')
         print('is_playing', player.is_playing())
         print('is_playing_key(CenterX)', player.is_playing_key('CenterX'))
-        print('is_device_connected(Vest)', player.is_device_connected('Vest'))
-        print('is_device_connected(ForearmL)', player.is_device_connected('ForearmL'))
+        print('is_device_connected(Vest)', player.is_device_connected(BhapticsPosition.Vest.value))
+        print('is_device_connected(ForearmL)', player.is_device_connected(BhapticsPosition.ForearmL.value))
         print('=================================================')
 
 

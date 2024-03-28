@@ -1,9 +1,10 @@
 from time import sleep
 from bhaptics import haptic_player
-
+from bhaptics.haptic_player import BhapticsPosition
 
 player = haptic_player.HapticPlayer()
 sleep(0.4)
+
 
 # tact file can be exported from bhaptics designer
 print("register CenterX")
@@ -28,12 +29,23 @@ sleep(3)
 interval = 0.5
 durationMillis = 100
 
+
 for i in range(20):
     print(i, "back")
-    player.submit_dot("backFrame", "VestBack", [{"index": i, "intensity": 100}], durationMillis)
+    player.submit_dot("backFrame", BhapticsPosition.VestBack.value, [{"index": i, "intensity": 100}], durationMillis)
     sleep(interval)
 
     print(i, "front")
-    player.submit_dot("frontFrame", "VestFront", [{"index": i, "intensity": 100}], durationMillis)
+    player.submit_dot("frontFrame", BhapticsPosition.VestFront.value, [{"index": i, "intensity": 100}], durationMillis)
+    sleep(interval)
+sleep(3)
+
+
+for i in range(6):
+    print(i, "Glove Left")
+    player.submit_dot("gloveLFrame", BhapticsPosition.GloveL.value, [{"index": i, "intensity": 100}], durationMillis)
     sleep(interval)
 
+    print(i, "Glove Right")
+    player.submit_dot("gloveRFrame", BhapticsPosition.GloveR.value, [{"index": i, "intensity": 100}], durationMillis)
+    sleep(interval)
