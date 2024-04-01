@@ -165,6 +165,13 @@ def submit_dot(key, position, dot_points, duration_millis):
     }
     submit(key, front_frame)
 
+def submit_path(key, position, path_points, duration_millis):
+    front_frame = {
+        "position": position,
+        "pathPoints": path_points,
+        "durationMillis": duration_millis
+    }
+    submit(key, front_frame)
 
 def __submit(json_str):
     if ws is not None:

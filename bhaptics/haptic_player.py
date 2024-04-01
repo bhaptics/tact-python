@@ -132,5 +132,13 @@ class HapticPlayer:
         }
         self.submit(key, front_frame)
 
+    def submit_path(self, key, position, path_points, duration_millis):
+        front_frame = {
+            "position": position,
+            "pathPoints": path_points,
+            "durationMillis": duration_millis
+        }
+        self.submit(key, front_frame)
+
     def __del__(self):
         self.ws.close()
