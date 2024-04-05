@@ -1,8 +1,7 @@
 ### Sample code for python
 
 ### Prerequisite
-* bHaptics Beta App is installed.
-* To get access, please contact developer@bhaptics.com.
+* [bHaptics Hub App](https://play.google.com/store/apps/details?id=com.bhaptics.hub) is installed.
 * Setup your project at the bHaptics Developer Portal: [Create haptic events using bHaptics Developer Portal](https://bhaptics.notion.site/Create-haptic-events-using-bHaptics-Developer-Portal-b056c5a56e514afeb0ed436873dd87c6).
 
 ### Conditions
