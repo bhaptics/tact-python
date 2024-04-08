@@ -125,9 +125,7 @@ class BhapticsSDK2:
 
         return request_id
     
-         
-    
-    # pos 0 is for TactSuit series device like X40 or X16.
+    # pos 0 is for TactSuit series  like X40 or X16.
     def play_dot_mode(self, motors, pos=0, duration=1):
         """Play an dot mode event."""
         if self.client is None:
@@ -142,6 +140,38 @@ class BhapticsSDK2:
         }
 
         message = generate_message("SdkPlayDotMode", play_message)
+        self.client.send_message(message)
+
+        return request_id
+    
+    # pos 0 is for TactSuit series  like X40 or X16.
+    # -------
+    # VEST = 0
+    # FOREARM_L = 1
+    # FOREARM_R = 2
+    # HEAD = 3
+    # HAND_L = 4
+    # HAND_R = 5
+    # FOOT_L = 6
+    # FOOT_R = 7
+    # GLOVE_L = 8
+    # GLOVE_R = 9
+    def play_path_mode(self, x_list, y_list, intensity_list, pos=0, duration=1):
+        """Play an dot mode event."""
+        if self.client is None:
+            return -1
+
+        request_id = random_request_id()
+        play_message = {
+            "requestId": request_id,
+            "pos": pos,
+            "durationMillis": duration * 1000,
+            "x": x_list,
+            "y": y_list,
+            "intensity": intensity_list
+        }
+
+        message = generate_message("SdkPlayPathMode", play_message)
         self.client.send_message(message)
 
         return request_id
