@@ -125,6 +125,27 @@ class BhapticsSDK2:
 
         return request_id
     
+         
+    
+    # pos 0 is for TactSuit series device like X40 or X16.
+    def play_dot_mode(self, motors, pos=0, duration=1):
+        """Play an dot mode event."""
+        if self.client is None:
+            return -1
+
+        request_id = random_request_id()
+        play_message = {
+            "requestId": request_id,
+            "pos": pos,
+            "durationMillis": duration * 1000,
+            "motors": motors
+        }
+
+        message = generate_message("SdkPlayDotMode", play_message)
+        self.client.send_message(message)
+
+        return request_id
+    
     def stop_all(self):
         """Stop all events."""
         if self.client is None:

@@ -20,16 +20,51 @@ if __name__ == '__main__':
         time.sleep(3)
 
         while True:
-            sdk_instance.play_event("shoot_test")
+            sdk_instance.play_dot_mode(
+                [
+                    30, 30, 30, 30,
+                    30, 30, 30, 30,
+                    30, 30, 30, 30,
+                    30, 30, 30, 30,
+                    30, 30, 30, 30,
+
+                    30, 30, 30, 30,
+                    30, 30, 30, 30,
+                    30, 30, 30, 30,
+                    30, 30, 30, 30,
+                    30, 30, 30, 30,
+                ]
+            )
             time.sleep(5)
 
-            sdk_instance.play_event("shoot_test", duration=2)
+            sdk_instance.play_dot_mode(
+                [
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    50, 50, 50, 50,
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+                ],
+                duration=3
+            )
             time.sleep(5)
 
-            sdk_instance.play_event("shoot_test", duration=2)
-            time.sleep(0.2)
-            sdk_instance.stop_all()
-            time.sleep(5)
+            # sdk_instance.play_event("shoot_test")
+            # time.sleep(5)
+
+            # sdk_instance.play_event("shoot_test", duration=2)
+            # time.sleep(5)
+
+            # sdk_instance.play_event("shoot_test", duration=2)
+            # time.sleep(0.2)
+            # sdk_instance.stop_all()
+            # time.sleep(5)
     
     except KeyboardInterrupt:
         print("Stopping the client...")
