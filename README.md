@@ -1,17 +1,29 @@
-### Sample code for python
+# Sample code for python
 
-### Prerequisite
-* [bHaptics Hub App](https://play.google.com/store/apps/details?id=com.bhaptics.hub) is installed.
-* Setup your project at the bHaptics Developer Portal: [Create haptic events using bHaptics Developer Portal](https://bhaptics.notion.site/Create-haptic-events-using-bHaptics-Developer-Portal-b056c5a56e514afeb0ed436873dd87c6).
+## Prerequisite
+- One or more TactSuits (X40, X16, and so on)
+- bHaptics Hub App ([android](https://bit.ly/bhaptics-hub-android)) is installed.
+- Setup your project at the bHaptics Developer Portal: [Create haptic events using bHaptics Developer Portal](https://bhaptics.notion.site/Create-haptic-events-using-bHaptics-Developer-Portal-b056c5a56e514afeb0ed436873dd87c6).
 
 ### Conditions
-* Tested under Python 3.9
+- Tested under Python 3.9
 
 ### Dependencies
-* requests
+- requests
 
+## Getting started with sample code
+1. Install bHaptics Hub App - [android](https://bit.ly/bhaptics-hub-android)
+2. Setup bHaptics Hub App with your TactSuit - [bHaptics Hub Guide](https://bit.ly/bHaptics-Hub-Guide)
+3. Go source directory and install the required dependencies.
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. Run sample code
+    ```bash
+    python sample.py
+    ```
 
-### Example Code
+## Example Code
 Here's a sample code snippet demonstrating how to use the bHaptics SDK with Python:
 
 ```python
@@ -40,15 +52,7 @@ if __name__ == '__main__':
 
 ```
 
-### Usage Instructions
-* Install the required dependencies.
+## Next
+- Visit [developer.bhaptics.com](https://developer.bhaptics.com/) to create your own project.
+- Update the appId and apiKey in the code with your credentials.
 
-```
-pip install -r requirements.txt
-```
-
-* Update the appId and apiKey in the code with your credentials.
-
-Visit developer.bhaptics.com to create your own project.
-
-* Execute the script, and it will periodically play haptic patterns every 5 seconds.
