@@ -125,6 +125,78 @@ class BhapticsSDK2:
 
         return request_id
     
+    def play_loop(self, event, intensity=1, duration=1, interval=0, maxCount=0, offset_angle_x=0, offset_y=0):
+        """Play loop event."""
+        if self.client is None:
+            return -1
+
+        request_id = random_request_id()
+        play_message = {
+            "eventName": event,
+            "requestId": request_id,
+            "intensity": intensity,
+            "duration": duration,
+            "interval": interval,
+            "maxCount": maxCount,
+            "offsetAngleX": offset_angle_x,
+            "offsetY": offset_y,
+        }
+
+        message = generate_message("SdkPlayLoop", play_message)
+        self.client.send_message(message)
+
+        return request_id
+    
+    # pos 0 is for TactSuit series  like X40 or X16.
+    # -------
+    # VEST = 0
+    # FOREARM_L = 1
+    # FOREARM_R = 2
+    # HEAD = 3
+    # HAND_L = 4
+    # HAND_R = 5
+    # FOOT_L = 6
+    # FOOT_R = 7
+    # GLOVE_L = 8
+    # GLOVE_R = 9
+    def play_dot_mode(self, motors, pos=0, duration=1):
+        """Play an dot mode event."""
+        if self.client is None:
+            return -1
+
+        request_id = random_request_id()
+        play_message = {
+            "requestId": request_id,
+            "pos": pos,
+            "durationMillis": duration * 1000,
+            "motors": motors
+        }
+
+        message = generate_message("SdkPlayDotMode", play_message)
+        self.client.send_message(message)
+
+        return request_id
+    
+    def play_path_mode(self, x_list, y_list, intensity_list, pos=0, duration=1):
+        """Play an path mode event."""
+        if self.client is None:
+            return -1
+
+        request_id = random_request_id()
+        play_message = {
+            "requestId": request_id,
+            "pos": pos,
+            "durationMillis": duration * 1000,
+            "x": x_list,
+            "y": y_list,
+            "intensity": intensity_list
+        }
+
+        message = generate_message("SdkPlayPathMode", play_message)
+        self.client.send_message(message)
+
+        return request_id
+    
     def stop_all(self):
         """Stop all events."""
         if self.client is None:
