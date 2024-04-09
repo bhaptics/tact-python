@@ -1,14 +1,8 @@
-# import keyboard
 import time
 
 from bhaptics.haptic_player import BhapticsSDK2
 
 sdk_instance = None
-
-
-def on_play():
-    sdk_instance.play_event("shoot_test")
-
 
 if __name__ == '__main__':
     # Replace 'yourAppId' and 'yourApiKey' with your actual appId and apiKey
@@ -80,26 +74,26 @@ if __name__ == '__main__':
             time.sleep(5)
 
 
-            # Play an "shoot_test" event.
-            print("Play an shoot_test event.")
+            # Play "shoot_test" event.
+            print("Play `shoot_test` event.")
             sdk_instance.play_event("shoot_test")
             time.sleep(5)
 
-            # Play an "shoot_test" event with duration to double.
-            print("Play an shoot_test event with duration to double.")
+            # Play "shoot_test" event with its duration doubled.
+            print("Play `shoot_test` event with its duration doubled.")
             sdk_instance.play_event("shoot_test", duration=2)
             time.sleep(5)
 
-            # Play an "shoot_test" event, and stop all event.
-            print("Play an shoot_test event, and stop all event.")
+            # Start playing "shoot_test" event and stop all events immediately.
+            print("Start playing `shoot_test` event and stop all events immediately.")
             sdk_instance.play_event("shoot_test", duration=2)
             time.sleep(0.2)
             sdk_instance.stop_all()
             time.sleep(5)
 
 
-            # Repeat the event 3 times
-            print("Repeat the event 3 times")
+            # Repeat "shoot_test" event 3 times.
+            print("Repeat `shoot_test` event 3 times.")
             sdk_instance.play_loop("shoot_test", interval=1, maxCount=3)
             time.sleep(5)
 
