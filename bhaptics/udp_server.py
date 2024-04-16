@@ -28,7 +28,9 @@ class UDPServer:
             if self.running:
                 self.__print(f"An error occurred in UDP: {e}")
         finally:
-            self.stop_server()
+            self.running = False
+            self.sock.close()
+            self.__print("Closed UDP server.")
 
     def start_server(self):
         self.sock.bind((self.host, self.port))
@@ -44,15 +46,16 @@ class UDPServer:
                 self.sock.close()
             except OSError as e:
                 self.__print(f"Error closing UDP socket: {e}")
+                return
             
-            try:
-                if self.thread:
-                    self.thread.join()
-                    self.thread = None
-            except Exception as e:
-                self.__print(f"Error joining UDP thread: {e}")
-        
-            self.__print("Closed UDP server.")
+            if threading.current_thread() != self.thread:
+                try:
+                    if self.thread:
+                        self.thread.join()
+                        self.thread = None
+                except Exception as e:
+                    self.__print(f"Error joining UDP thread: {e}")
+                    return
 
 # Global server instance
 udp_server = None

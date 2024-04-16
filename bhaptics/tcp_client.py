@@ -31,7 +31,9 @@ class TCPClient:
             if self.connected:
                 self.__print(f"An error occurred in TCP: {e}")
         finally:
-            self.stop()
+            self.connected = False
+            self.client_socket.close()
+            self.__print(f"Closed TCP connection with app.")
 
     def send_message(self, message):
         self.__print("Client → App: ", message)
@@ -73,15 +75,16 @@ class TCPClient:
                 self.client_socket.close()
             except OSError as e:
                 self.__print(f"Error closing TCP socket: {e}")
-
-            try:
-                if self.receive_thread:
-                    self.receive_thread.join()
-                    self.receive_thread = None
-            except Exception as e:
-                self.__print(f"Error joining TCP thread: {e}")
-                
-            self.__print(f"Closed TCP connection with app.")
+                return
+            
+            if threading.current_thread() != self.receive_thread:
+                try:
+                    if self.receive_thread:
+                        self.receive_thread.join()
+                        self.receive_thread = None
+                except Exception as e:
+                    self.__print(f"Error joining TCP thread: {e}")
+                return
 
     def is_connected(self):
         return self.connected
