@@ -1,8 +1,8 @@
 import json
 import time
 import requests
-import bhaptics.udp_server
-import bhaptics.tcp_client
+import bhaptics.udp_server as udp_server
+import bhaptics.tcp_client as tcp_client
 import random
 
 # Constants and Configuration
@@ -46,7 +46,7 @@ class BhapticsSDK2:
         self.start()
 
     def start(self):
-        bhaptics.udp_server.listen(callback=self.udp_message_received)
+        udp_server.listen(callback=self.udp_message_received)
 
     def stop(self):
         if self.client:
@@ -58,17 +58,17 @@ class BhapticsSDK2:
         print(f"Received UDP message from {addr[0]}:{addr[1]} - {msg}")
 
         if self.client is None:
-            self.client = bhaptics.tcp_client.TCPClient(addr[0], msg["port"],
+            self.client = tcp_client.TCPClient(addr[0], msg["port"],
                                                         message_received_callback=self.message_received)
             self.client.start()
 
         self.wait_for_client_connection()
         self.send_auth_request()
-        bhaptics.udp_server.stop()
+        udp_server.stop()
 
     def wait_for_client_connection(self):
         """Wait until the client is connected."""
-        while not self.client.status():
+        while not self.client.is_connected():
             print("Waiting for client to connect...")
             time.sleep(1)
 
