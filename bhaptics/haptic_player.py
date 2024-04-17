@@ -122,12 +122,21 @@ def initialize(appId: str, apiKey: str, verbose: bool = False):
     udp_server.listen(callback=__udp_message_received, verbose=__is_verbose)
 
 def destroy():
-    global __client, __is_client_connected, __is_client_api_verified
+    global __client, __is_client_connected, __is_client_api_verified, __ping_thread, __ping_thread_active
 
     # For iOS Hub App, let server prepare for the disconnection
     if __client is not None:
         __ping_to_server()
-    
+
+    # Terminate the ping thread
+    if __ping_thread_active:
+        __ping_thread_active = False
+
+    if __ping_thread is not None:
+        __ping_thread.join()
+        __ping_thread = None
+
+    # Terminate the remaining threads
     udp_server.stop()
     __client.stop()
     __is_client_connected = False
@@ -336,6 +345,7 @@ def __ping_while_waiting():
     def __ping_loop():
         global __ping_thread, __ping_thread_active
 
+        __ping_thread_active = True
         try:
             while __ping_thread_active:
                 time.sleep(1)
@@ -344,8 +354,8 @@ def __ping_while_waiting():
             pass
         finally:
             __ping_thread_active = False
-
-    # Halt the ping loop if it is active
+    
+    # Assure the ping loop is joined if it is active
     if __ping_thread_active:
         __ping_thread_active = False
     
