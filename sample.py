@@ -1,6 +1,25 @@
+import sys
 import time
 
 import bhaptics.haptic_player as player
+
+__todo_text = ""
+
+def __push_todo(text):
+    global __todo_text
+
+    __pop_todo()
+
+    __todo_text = text
+    print(f"  ◻ {__todo_text}", end='')
+    sys.stdout.flush()
+
+def __pop_todo():
+    global __todo_text
+
+    if len(__todo_text) > 0:
+        print(f"\r  ☑ {__todo_text}")
+        sys.stdout.flush()
 
 if __name__ == '__main__':
     # TODO: Replace `appId` and `apiKey` with values of your app
@@ -33,10 +52,9 @@ if __name__ == '__main__':
     print(f"Client verification: {player.is_client_api_verified()}")
     print()
 
-    print("\nPlay haptic samples!!!")
+    print("Now playing hapting events...")
 
-    # Play Dot Mode - sample 1
-    print("Play Dot Mode - sample 1")
+    __push_todo("play_dot(\"sample_front\")")
     player.play_dot(
         player.Position.VEST,
         [
@@ -58,8 +76,7 @@ if __name__ == '__main__':
     )
     time.sleep(5)
 
-    # Play Dot Mode - sample 2
-    print("Play Dot Mode - sample 2")
+    __push_todo("play_dot(\"sample_back\")")
     player.play_dot(
         player.Position.VEST,
         [
@@ -81,8 +98,7 @@ if __name__ == '__main__':
     )
     time.sleep(5)
 
-    # Play Path Mode - sample
-    print("Play Path Mode - sample")
+    __push_todo("play_path(\"sample_scan\")")
     for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]:
         player.play_path(
             player.Position.VEST,
@@ -93,28 +109,28 @@ if __name__ == '__main__':
     time.sleep(5)
 
     # Play "shoot_test" event.
-    print("Play `shoot_test` event.")
+    __push_todo("play_event(\"shoot_test\")")
     player.play_event("shoot_test")
     time.sleep(5)
 
     # Play "shoot_test" event with its duration doubled.
-    print("Play `shoot_test` event with its duration doubled.")
+    __push_todo("play_event(\"shoot_test\") with doubled duration")
     player.play_event("shoot_test", duration=2)
     time.sleep(5)
 
-    # Start playing "shoot_test" event and stop all events immediately.
-    print("Start playing `shoot_test` event and stop all events immediately.")
+    # Begin "shoot_test" event and stop immediately.
+    __push_todo("begin play_event(\"shoot_test\") with doubled duration and stop immediately")
     player.play_event("shoot_test", duration=2)
     time.sleep(0.2)
     player.stop_all()
     time.sleep(5)
 
     # Repeat "shoot_test" event 3 times.
-    print("Repeat `shoot_test` event 3 times.")
+    __push_todo("repeat play_event(\"shoot_test\") three times")
     player.play_loop("shoot_test", interval=1, maxCount=3)
     time.sleep(5)
 
-    print("Testing: play_glove(L)")
+    __push_todo("play_glove(L)")
     player.play_glove(
         position=player.Position.GLOVE_L,
         gloveModes=[
@@ -125,7 +141,7 @@ if __name__ == '__main__':
     )
     time.sleep(2)
 
-    print("Testing: play_glove(R)")
+    __push_todo("play_glove(R)")
     player.play_glove(
         position=player.Position.GLOVE_R,
         gloveModes=[
@@ -135,6 +151,8 @@ if __name__ == '__main__':
         ]
     )
     time.sleep(2)
+    __pop_todo()
 
     player.destroy()
-    print("Client stopped.")
+    print()
+    print("All test finished!")
