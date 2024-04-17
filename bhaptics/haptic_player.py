@@ -4,6 +4,7 @@ from enum import Enum
 
 import json
 import time
+import threading
 
 if __name__ == '__main__':
     import udp_server as udp_server
@@ -17,6 +18,9 @@ __is_client_connected = False
 __is_client_api_verified = False
 
 __is_verbose = False
+
+__ping_thread = None
+__ping_thread_active = False
 
 __conf = {
     "applicationId": "",
@@ -155,6 +159,7 @@ def play_event(
     }
 
     __client.send_message(__generate_message("SdkPlay", play_message))
+    __ping_while_waiting()
     return requestId
 
 class Position(Enum):
@@ -191,6 +196,7 @@ def play_dot(
     }
 
     __client.send_message(__generate_message("SdkPlayDotMode", play_message))
+    __ping_while_waiting()
     return requestId
 
 class GloveMode:
@@ -237,6 +243,7 @@ def play_glove(
     }
 
     __client.send_message(__generate_message("SdkPlayWaveformMode", play_message))
+    __ping_while_waiting()
     return requestId
 
 class PathPoint:
@@ -287,6 +294,7 @@ def play_path(
     }
 
     __client.send_message(__generate_message("SdkPlayPathMode", play_message))
+    __ping_while_waiting()
     return requestId
 
 def play_loop(
@@ -319,27 +327,57 @@ def play_loop(
     }
 
     __client.send_message(__generate_message("SdkPlayLoop", play_message))
+    __ping_while_waiting()
     return requestId
 
+def __ping_while_waiting():
+    global __ping_thread, __ping_thread_active
+
+    def __ping_loop():
+        global __ping_thread, __ping_thread_active
+
+        try:
+            while __ping_thread_active:
+                time.sleep(1)
+                __ping_to_server()
+        except Exception as e:
+            pass
+        finally:
+            __ping_thread_active = False
+
+    # Halt the ping loop if it is active
+    if __ping_thread_active:
+        __ping_thread_active = False
+    
+    if __ping_thread is not None:
+        __ping_thread.join()
+        __ping_thread = None
+
+    # Ping for every second to keep the Hub app alive (especially for iOS)
+    __ping_thread = threading.Thread(target=__ping_loop)
+    __ping_thread.start()
 
 def __ping_to_server():
     __client.send_message(__generate_message("SdkPingToServer"))
 
-
 def ping_all():
     __client.send_message(__generate_message("SdkPingAll"))
+    __ping_while_waiting()
 
 
 def stop_by_event(name: str):
     __client.send_message(__generate_message("SdkStopByEventId", name))
+    __ping_while_waiting()
 
 
 def stop_by_request(id: int):
     __client.send_message(__generate_message("SdkStopByRequestId", id))
+    __ping_while_waiting()
 
 
 def stop_all():
     __client.send_message(__generate_message("SdkStopAll"))
+    __ping_while_waiting()
 
 
 if __name__ == '__main__':
