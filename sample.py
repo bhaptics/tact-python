@@ -102,7 +102,7 @@ if __name__ == '__main__':
     for i in [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]:
         player.play_path(
             player.Position.VEST,
-            [player.PathPoint(x=i, y=0.5, intensity=5)],
+            [player.PathPoint(x=i, y=0.5, intensity=50)],
             duration = 500
         )
         time.sleep(0.5)
