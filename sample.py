@@ -33,6 +33,7 @@ if __name__ == '__main__':
         verbose = False
     )
     
+    print(f"Testing bHaptics Hub Python SDK v{player.__version__}.\n")
     print("1. Open TactHub app and connect with TactSuit x40.")
     print("2. Press the play button to start the server.")
     print()
