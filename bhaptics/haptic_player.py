@@ -1,3 +1,4 @@
+import re
 import random
 import requests
 from enum import Enum
@@ -22,9 +23,15 @@ __is_verbose = False
 __ping_thread = None
 __ping_thread_active = False
 
+__version__ = "py 1.0.0"
+__version_number__ = 1
+__version_info__ = tuple([ int(num) for num in re.sub(r"[^\d.]", "", __version__).split('.')])
+
 __conf = {
     "applicationId": "",
     "sdkApiKey": "",
+    "sdkVersionName": __version__,
+    "sdkVersion": __version_number__
 }
 
 def __print(*args, **kwargs):
@@ -110,13 +117,15 @@ def is_client_api_verified():
     return __is_client_api_verified
 
 def initialize(appId: str, apiKey: str, verbose: bool = False):
-    global __conf, __is_verbose
+    global __conf, __is_verbose, __version__, __version_info__
 
     __is_verbose = verbose
     
     __conf = {
         "applicationId": appId,
         "sdkApiKey": apiKey,
+        "sdkVersionName": __version__,
+        "sdkVersion": __version_number__
     }
     
     udp_server.listen(callback=__udp_message_received, verbose=__is_verbose)
@@ -402,6 +411,7 @@ if __name__ == '__main__':
         verbose = False
     )
     
+    print(f"Testing bHaptics Hub Python SDK v{__version_info__}.\n")
     print("1. Open TactHub app and connect with TactSuit x40.")
     print("2. Press the play button to start the server.")
     print()
