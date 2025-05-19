@@ -65,6 +65,22 @@ player.submit_dot("feedback_id", BhapticsPosition.VestBack.value,
                  [{"index": 0, "intensity": 100}], duration_millis=100)
 ```
 
+## Example: Dot-Based Patterns
+
+```python
+from bhaptics import better_haptic_player as player
+from bhaptics.better_haptic_player import BhapticsPosition
+from time import sleep
+
+player.initialize()
+
+# Play sequential dots on vest front
+for i in range(20):  # Vest has 20 motors
+    player.submit_dot("front_dots", BhapticsPosition.VestFront.value, 
+                     [{"index": i, "intensity": 100}], 100)
+    sleep(0.5)  # Wait between activations
+```
+
 ### Submit Path Pattern
 
 Play haptic feedback by specifying exact positions:
