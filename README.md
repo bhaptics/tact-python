@@ -10,7 +10,7 @@ The bHaptics Python SDK provides an asynchronous interface to control bHaptics h
 
 ### Required Software
 - **bHaptics Player**: Download and install the PC player from the [official download page](https://www.bhaptics.com/support/downloads)
-- **Python 3.9**: Currently supported Python version
+- **Python 3.8~3.12**: Currently supported Python version
 
 ### Developer Account Setup
 - **bHaptics Portal**: Create a workspace on the [developer portal](https://developer.bhaptics.com/)
