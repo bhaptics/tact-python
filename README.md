@@ -30,7 +30,7 @@ This SDK is provided by bHaptics Inc. Check the official documentation for licen
 
 - [Official Documentation](https://docs.bhaptics.com)
 - [Developer Portal](https://developer.bhaptics.com)
-- [Docs] (https://docs.bhaptics.com/sdk/python/)
+- [Docs](https://docs.bhaptics.com/sdk/python/)
 
 ## Contributing
 
